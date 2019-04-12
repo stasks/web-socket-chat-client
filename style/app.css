@@ -1,0 +1,104 @@
+html, body {
+    margin:0;
+    background-color:#f0f0f0;
+    font-family:"Open Sans",sans-serif;
+}
+
+.app {
+    width:70%;
+    min-width:400px;
+    max-width:1000px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    -webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.25);
+    -moz-box-shadow: 0 0 20px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.25);
+}
+
+.app .app__topBar {
+    display:table;
+    height:76px;
+    width:100%;
+    background-color: #2b4049;
+    border-radius: 10px 10px 0 0;
+}
+
+.app .app__topBar > div{
+    display:table-cell;
+    vertical-align: middle;
+    height: 100%;
+    padding:0 18px;
+}
+
+.app .app__topBar > div:last-child{
+    text-align:right;
+}
+
+.app .app__grid {
+    width: 100%;
+    display: table;
+}
+
+.app .app__grid > div {
+    display: table-row;
+}
+
+.app .app__row2 {
+    height:76px;
+    line-height:76px;
+}
+
+
+
+.app .block__users {
+    display: table-cell;
+    vertical-align: top;
+    width:30%;
+    min-width:160px;
+    background-color: #ffffff;
+    border-bottom:1px solid #eef2f3;
+}
+
+.app .block__chat {
+    display: table-cell;
+    vertical-align: top;
+    width:70%;
+    max-height:600px;
+    background-color: #ecf0f1;
+    border-bottom:1px solid #d8e0e3;
+}
+
+.app .block__disconnect {
+    display: table-cell;
+    border-radius: 0 0 0 10px;
+    background-color: #ffffff;
+}
+
+.app .block__input {
+    display: table-cell;
+    border-radius: 0 0 10px 0;
+    background-color: #e2e8ea;
+}
+
+.disconnectBtn {
+    width:140px;
+    height:40px;
+    border: none;
+    transition: background-color 0.8s ease;
+    background-color:#e03d3d;
+    color:#ffffff;
+    border-radius: 10px;
+    cursor:pointer;
+    padding:0;
+    outline:none;
+}
+
+.disconnectBtn:hover {
+    background-color:#e35959;
+}

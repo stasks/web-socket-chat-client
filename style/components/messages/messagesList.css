@@ -1,0 +1,9 @@
+.container {
+    height:600px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.list {
+    padding:8px 14px;
+}

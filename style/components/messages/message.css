@@ -1,0 +1,74 @@
+.block {
+    margin:8px 48px 0 0;
+    display:table;
+}
+
+.block__my {
+    margin:8px 0 0 48px;
+}
+
+.block__info {
+    margin:8px 48px 0 48px;
+    text-align:center;
+}
+
+.align__right {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.avatar {
+    display:table-cell;
+    width:40px;
+    padding-right:8px;
+}
+
+.avatar__my {
+    padding:0 0 0 8px;
+}
+
+.avatar > img {
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.message {
+    display:table-cell;
+    vertical-align:top;
+    background-color:#ffffff;
+    border-radius:0 8px 8px 8px;
+    padding:12px;
+    font-size:12px;
+}
+
+.message__my {
+    background-color:#bceaf6;
+    border-radius:8px 0 8px 8px;
+}
+
+.message__info {
+    display:inline-block;
+    background-color:#fbd977;
+    border-radius:8px;
+    padding:12px;
+    font-size:12px;
+}
+
+.message > p{
+    color:#a0a0a0;
+}
+
+.message > p.name{
+    margin:0 0 4px 0;
+}
+
+.message > p.time{
+    margin:4px 0 0 0;
+    text-align:right;
+    font-size:10px;
+}

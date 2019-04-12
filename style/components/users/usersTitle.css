@@ -1,0 +1,24 @@
+.block {
+    height:76px;
+    line-height:76px;
+    padding:0 16px;
+    margin:0;
+    font-size:12px;
+    border-bottom:1px solid #eef2f3;
+}
+
+.block > div{
+    display:inline-block;
+}
+
+.count {
+    min-width:20px;
+    height:20px;
+    line-height:20px;
+    text-align:center;
+    border-radius:12px;
+    background-color:#e2e8ea;
+    color:#888888;
+    padding:0 6px;
+    margin-left:6px;
+}
