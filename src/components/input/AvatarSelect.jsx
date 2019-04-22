@@ -12,33 +12,42 @@ class AvatarSelect extends React.Component {
         this.state = {
             items,
             selected
-        }
+        };
 
         this.onSelect = this.onSelect.bind(this);
     }
 
-    getAvatar() {
-        return this.state.selected;
-    }
-
     onSelect(avatar) {
-        if(avatar!==this.state.selected) {
+        const {selected} = this.state;
+        if(avatar !== selected) {
             this.setState({
                 selected:avatar
             });
         }
     }
 
+    getAvatar() {
+        const {selected} = this.state;
+        return selected;
+    }
+
     render() {
-        const list = this.state.items.map(item => {
-            const variant = this.state.selected===item ? style.avatar+" "+style.selected : style.avatar;
+        const {selected, items} = this.state;
+        const list = items.map(item => {
+            const variant = selected===item ? style.avatar+" "+style.selected : style.avatar;
             return (
-                <img
+                <div
                     key={item}
-                    src={"./assets/"+ item +".png"}
+                    role="presentation"
                     className={variant}
+                    onKeyDown={() => this.onSelect(item)}
                     onClick={() => this.onSelect(item)}
-                />
+                >
+                    <img
+                        alt="avatar"
+                        src={"./assets/"+ item +".png"}
+                    />
+                </div>
             );
         });
         return (

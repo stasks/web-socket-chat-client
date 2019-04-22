@@ -1,3 +1,7 @@
+export const MAKE_CONNECTION = 'make_connection';
+export const MAKE_DISCONNECT = 'make_disconnect';
+export const SEND_MESSAGE = 'send_message';
+
 export const ADD_MESSAGE = 'add_message';
 export const ADD_INFO_MESSAGE = 'add_info_message';
 export const CLEAR_MESSAGES = 'clear_messages';

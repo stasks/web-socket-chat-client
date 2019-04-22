@@ -15,14 +15,13 @@ const messagesReducer = (state = initialState, action, root) => {
                 ...state,
                 messages: []
             };
-            break;
         case ADD_MESSAGE:
-            const message = action.payload.message;
-            const userName = message.userName;
+            var message = action.payload.message;
+            var userName = message.userName;
             // IE doesn't support object.find
             //const userData = root.usersReducer.users.find(user => user.userName === userName);
-            const tmpArr = root.usersReducer.users.filter(user => user.userName === userName);
-            const userData = tmpArr.length===1 ? tmpArr[0] : null;
+            var tmpArr = root.usersReducer.users.filter(user => user.userName === userName);
+            var userData = tmpArr.length===1 ? tmpArr[0] : null;
             if(userData) {
                 message.userAvatar = userData.userAvatar;
             }
@@ -34,15 +33,14 @@ const messagesReducer = (state = initialState, action, root) => {
                 messages: [...state.messages, message]
             };
         case ADD_INFO_MESSAGE:
-            const msgData = {
+            var msgData = {
                 info: true,
                 text: action.payload.messageText
-            }
+            };
             return {
                 ...state,
                 messages: [...state.messages, msgData]
             };
-            break;
         default:
             return state;
     }

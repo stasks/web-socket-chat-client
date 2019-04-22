@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import style from '../../../style/components/messages/message.css';
 
 // React.memo instead of standard functional component required for performance optimisation
@@ -12,6 +13,7 @@ const InfoMessage = React.memo(props => {
         </div>
     );
 });
+InfoMessage.displayName = "InfoMessage";
 
 InfoMessage.propTypes = {
     text: PropTypes.string.isRequired,

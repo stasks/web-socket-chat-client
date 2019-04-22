@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {makeConnection} from "./actions/wsActions";
 
-import UsersTitle from './components/users/UsersTitle.jsx';
-import AvatarSelect from './components/input/AvatarSelect.jsx';
-import InputText from './components/input/InputText.jsx';
+import AvatarSelect from './components/input/AvatarSelect';
 import style from '../style/login.css';
 
 class Login extends React.Component {
@@ -12,9 +11,9 @@ class Login extends React.Component {
         super(props);
 
         this.state = {
-            warning:null,
+            warningTxt:null,
             loginValue:"",
-        }
+        };
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -28,31 +27,34 @@ class Login extends React.Component {
         });
     }
 
-    handleKeyDown(e) {
-        if (e.key === 'Enter') {
-            this.onClick();
-        }
-    }
-
     onClick() {
-        if(this.state.loginValue.length<2) {
+        const {loginValue} = this.state;
+
+        if(loginValue.length<2) {
             this.setState({
-                warning:"Username is too short. Minimum 2 symbols"
+                warningTxt:"Username is too short. Minimum 2 symbols"
             });
             return;
         }
-        if(!this.validateLogin(this.state.loginValue)) {
+        if(!this.validateLogin(loginValue)) {
             this.setState({
-                warning:"Only Latin alphabet, numbers and -_&$.! symbols allowed in username"
+                warningTxt:"Only Latin alphabet, numbers and -_&$.! symbols allowed in username"
             });
             return;
         }
 
         this.setState({
-            warning:null,
+            warningTxt:null,
         });
 
-        this.props.socket.makeConnection(this.state.loginValue, this.avatarRef.current.getAvatar());
+        const {makeConnection} = this.props;
+        makeConnection(loginValue, this.avatarRef.current.getAvatar());
+    }
+
+    handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            this.onClick();
+        }
     }
 
     validateLogin(nickname) {
@@ -62,21 +64,24 @@ class Login extends React.Component {
 
     render() {
         let warningMsg = null;
-        if(this.props.serverMsg!==null) {
+        const {serverMsg, mayConnect} = this.props;
+        const {warningTxt, loginValue} = this.state;
+
+        if(serverMsg) {
             warningMsg = (
                 <div className={style.warningMsg}>
-                    {this.props.serverMsg}
+                    {serverMsg}
                 </div>
             );
         }
-        if(this.state.warning!==null) {
+        if(warningTxt) {
             warningMsg = (
                 <div className={style.warningMsg}>
-                    {this.state.warning}
+                    {warningTxt}
                 </div>
             );
         }
-        const disabled = this.props.mayConnect ? null : {disabled:true};
+        const disabled = mayConnect ? null : {disabled:true};
 
         return (
             <div className={style.window}>
@@ -87,7 +92,7 @@ class Login extends React.Component {
                     className={style.inputName}
                     maxLength="30"
                     placeholder="Enter your username"
-                    value={this.state.loginValue}
+                    value={loginValue}
                     onKeyDown={this.handleKeyDown}
                     onChange={this.onChange}
                 />
@@ -106,8 +111,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-    socket: PropTypes.object.isRequired,
-}
+    makeConnection: PropTypes.func.isRequired,
+    mayConnect: PropTypes.bool.isRequired,
+    serverMsg: PropTypes.string,
+};
+
+Login.defaultProps = {
+    serverMsg: null,
+};
 
 const mapStateToProps = state => {
     return {
@@ -116,4 +127,10 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = dispatch => {
+    return {
+        makeConnection: (nickname, avatar) => dispatch(makeConnection(nickname, avatar))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

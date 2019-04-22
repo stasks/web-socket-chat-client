@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
 import style from '../../../style/components/users/usersTitle.css';
 
 const UsersTitle = React.memo(props => {
@@ -10,6 +12,15 @@ const UsersTitle = React.memo(props => {
         </div>
     );
 });
+UsersTitle.displayName = "UsersTitle";
+
+UsersTitle.propTypes = {
+    usersCount: PropTypes.number,
+};
+
+UsersTitle.defaultProps = {
+    usersCount: 0,
+};
 
 const mapStateToProps = state => {
     return {

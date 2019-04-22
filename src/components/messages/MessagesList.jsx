@@ -1,10 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import Message from './Message.jsx';
-import MyMessage from './MyMessage.jsx';
-import InfoMessage from './InfoMessage.jsx';
+import Message from './Message';
+import MyMessage from './MyMessage';
+import InfoMessage from './InfoMessage';
+
 import style from '../../../style/components/messages/messagesList.css';
 
 class MessagesList extends React.Component {
@@ -15,14 +16,15 @@ class MessagesList extends React.Component {
         this.doScrollDown = true;
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.messages.length!==this.props.messages.length) { // if item added or deleted do render
+    shouldComponentUpdate(nextProps) {
+        const { messages } = this.props;
+        if(nextProps.messages.length!==messages.length) { // if item added or deleted do render
             return true;
         }
         return false;
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate() {
         const scrollTop = this.container.current.scrollTop;
         const scrollHeight = this.container.current.scrollHeight;
         if((scrollHeight-scrollTop) === 600) {
@@ -40,7 +42,10 @@ class MessagesList extends React.Component {
 
 
     render() {
-        const list = this.props.messages.map((msgData, index) => {
+        const { messages } = this.props;
+        // Better not to use array index in keys. But in this case messages never changes, so it's ok
+        // Messages unique id preferred
+        const list = messages.map((msgData, index) => {
             if(msgData.info) {
                 return (
                     <InfoMessage
@@ -52,7 +57,7 @@ class MessagesList extends React.Component {
             let userName = msgData.userName;
             let avatarUrl = msgData.userAvatar;
             if((index-1) > -1) {
-                const prevMsgUser = this.props.messages[(index-1)].userName;
+                const prevMsgUser = messages[(index-1)].userName;
                 if(prevMsgUser===userName) {
                     userName = null;
                     avatarUrl = null;
@@ -93,6 +98,10 @@ class MessagesList extends React.Component {
         );
     }
 }
+
+MessagesList.propTypes = {
+    messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 const mapStateToProps = state => {
     return {

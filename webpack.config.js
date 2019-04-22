@@ -1,5 +1,7 @@
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        bundle: ['babel-polyfill', './src/index.jsx'],
+    },
     module: {
         rules: [
             {
@@ -29,10 +31,13 @@ module.exports = {
             },
         ]
     },
+    resolve: {
+        extensions: ['.js', '.jsx', '.json']
+    },
     output: {
         path: __dirname + '/dist',
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     devServer: {
         contentBase: './dist'

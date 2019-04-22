@@ -16,24 +16,24 @@ export default class webSocket {
         const ws = new WebSocket(this.host);
         this.ws = ws;
 
-        ws.addEventListener('open', event => {
-            console.log("opened");
+        ws.addEventListener('open', () => {
+            //console.log("opened");
 
             const data = {
                 $type: "login",
                 userName,
                 userAvatar,
-            }
+            };
             ws.send(JSON.stringify(data));
         });
 
-        ws.addEventListener('close', event => {
+        ws.addEventListener('close', () => {
             this.dispatch(mayConnect(true));
             this.dispatch(updateLogin(false));
             this.dispatch(clearMessages());
         });
 
-        ws.addEventListener('error', event => {
+        ws.addEventListener('error', () => {
             this.dispatch(mayConnect(true));
             this.dispatch(updateLogin(false));
             this.dispatch(serverMsg("Server unavailable."));
@@ -56,7 +56,8 @@ export default class webSocket {
                     break;
                 case "user_add":
                     this.dispatch(addUser(json.user));
-                    const msg = json.user.userName + ' has joined this chat';
+
+                    var msg = json.user.userName + ' has joined this chat';
                     this.dispatch(addInfoMessage(msg));
                     break;
                 case "user_remove":
@@ -78,12 +79,12 @@ export default class webSocket {
             const data = {
                 $type: "msg",
                 msg,
-            }
+            };
             this.ws.send(JSON.stringify(data));
         }
     }
 
-    doDisconnect() {
+    makeDisconnect() {
         if(this.ws) this.ws.close();
     }
 }

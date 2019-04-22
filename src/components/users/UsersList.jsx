@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import User from './User.jsx';
+import User from './User';
 import style from '../../../style/components/users/usersList.css';
 
-const UsersList = props => {
-    const list = props.users.map(user => {
+const UsersList = ({users}) => {
+    const list = users.map(user => {
         return(
             <User
                 key={user.uid}
@@ -20,7 +21,12 @@ const UsersList = props => {
             {list}
         </div>
     );
-}
+};
+UsersList.displayName = "UsersList";
+
+UsersList.propTypes = {
+    users: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 const mapStateToProps = state => {
     return {
